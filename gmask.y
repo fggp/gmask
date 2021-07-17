@@ -7,7 +7,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/fggp/gmask"
+	"github.com/fggp/gmasklib"
 	"io"
 	"io/ioutil"
 	"log"
