@@ -30,4 +30,4 @@ Andre"
 The gmask program reflects exactly Cmask features. It has a parser that recognizes the grammar written by Andre: http://www2.ak.tu-berlin.de/~abartetzki/CMaskMan/CMask-Reference.htm
 
 When the program is called on a parameter file respecting Cmask language, it will output a
-Csound sco file on standard out. One can also write the attribute bin="gmask" in a CsScore tag of a csd file to get the score generated on the fly while playing the csd file with Csound. See the examples directory in the gmask/gmask directory.
+Csound sco file on standard out. One can also write the attribute bin="gmask" in a CsScore tag of a csd file to get the score generated on the fly while playing the csd file with Csound. See the examples directory in the gmask directory.
