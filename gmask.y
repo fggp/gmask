@@ -20,15 +20,15 @@ import (
   val float64
   n   int
   sco string
-  fie *gmask.Field
-  par gmask.Param
-  gen gmask.Generator
-  itm gmask.ItemMode
+  fie *gmasklib.Field
+  par gmasklib.Param
+  gen gmasklib.Generator
+  itm gmasklib.ItemMode
   lst *List
-  ipl *gmask.Interpolation
-  rmd gmask.RndMode
-  omd gmask.OscMode
-  amd gmask.AccumMode
+  ipl *gmasklib.Interpolation
+  rmd gmasklib.RndMode
+  omd gmasklib.OscMode
+  amd gmasklib.AccumMode
   sli []interface{}
 }
 
@@ -67,88 +67,88 @@ input: csco     { fmt.Fprintf(w, "%s\n", $1) }
 csco: SCO       { $$ = $1 }
 ;
 
-field: F NUMBER NUMBER    { $$ = gmask.NewField($2, $3) }
+field: F NUMBER NUMBER    { $$ = gmasklib.NewField($2, $3) }
 | field param             { $1.AddParam($2) }
 ;
 
-param: PARAM generator prec   { $$ = gmask.NewParam($1, $2, $3) }
+param: PARAM generator prec   { $$ = gmasklib.NewParam($1, $2, $3) }
 ;
 
-generator: CONST NUMBER         { $$ = gmask.ConstGen($2) }
-| item '(' list ')'             { $$ = gmask.ItemGen($1, $3.GetVal()) }
+generator: CONST NUMBER         { $$ = gmasklib.ConstGen($2) }
+| item '(' list ')'             { $$ = gmasklib.ItemGen($1, $3.GetVal()) }
 | SEG bpf                       { $$ = $2 }
-| RANGE NUMBER NUMBER           { $$ = gmask.RangeGen($2, $3) }
+| RANGE NUMBER NUMBER           { $$ = gmasklib.RangeGen($2, $3) }
 | rndgen
 | oscgen
-| generator mask                  { $$ = gmask.MaskGen($1, $2...) }
-| generator quant                 { $$ = gmask.QuantGen($1, $2...) }
-| generator ACCUM ON              { $$ = gmask.AccumGen($1, gmask.ON) }
-| generator ACCUM ON INIT NUMBER  { $$ = gmask.AccumGen($1, gmask.ON, $5) }
-| generator accum                 { $$ = gmask.AccumGen($1, $2...) }
+| generator mask                  { $$ = gmasklib.MaskGen($1, $2...) }
+| generator quant                 { $$ = gmasklib.QuantGen($1, $2...) }
+| generator ACCUM ON              { $$ = gmasklib.AccumGen($1, gmasklib.ON) }
+| generator ACCUM ON INIT NUMBER  { $$ = gmasklib.AccumGen($1, gmasklib.ON, $5) }
+| generator accum                 { $$ = gmasklib.AccumGen($1, $2...) }
 ;
 
-item: ITEM CYCLE          { $$ = gmask.CYCLE }
-| ITEM SWING              { $$ = gmask.SWING }
-| ITEM HEAP               { $$ = gmask.HEAP }
-| ITEM RANDOM             { $$ = gmask.RANDOM }
+item: ITEM CYCLE          { $$ = gmasklib.CYCLE }
+| ITEM SWING              { $$ = gmasklib.SWING }
+| ITEM HEAP               { $$ = gmasklib.HEAP }
+| ITEM RANDOM             { $$ = gmasklib.RANDOM }
 ;
 
 list: NUMBER              { $$ = NewList($1) } 
 | list NUMBER             { $1.AddVal($2) }
 ;
 
-bpf: '(' bplist ipl ')'      { $$ = gmask.BpfGen($2.GetVal(), $3) }
-| '[' NUMBER NUMBER ipl ']'  { $$ = gmask.BpfGen([]float64{$2, $3}, $4) }
+bpf: '(' bplist ipl ')'      { $$ = gmasklib.BpfGen($2.GetVal(), $3) }
+| '[' NUMBER NUMBER ipl ']'  { $$ = gmasklib.BpfGen([]float64{$2, $3}, $4) }
 ;
 
 bplist: NUMBER NUMBER     { $$ = NewBpList($1, $2) } 
 | bplist NUMBER NUMBER    { $1.AddBp($2, $3) }
 ;
 
-ipl: /* empty */          { $$ = gmask.NewInterpolation(0, false, false) }
-| IPL NUMBER              { $$ = gmask.NewInterpolation($2, false, false) }
-| IPL COS                 { $$ = gmask.NewInterpolation(0, true, false) }
-| IPL OFF                 { $$ = gmask.NewInterpolation(0, false, true) }
+ipl: /* empty */          { $$ = gmasklib.NewInterpolation(0, false, false) }
+| IPL NUMBER              { $$ = gmasklib.NewInterpolation($2, false, false) }
+| IPL COS                 { $$ = gmasklib.NewInterpolation(0, true, false) }
+| IPL OFF                 { $$ = gmasklib.NewInterpolation(0, false, true) }
 ;
 
-rnd: RND UNI    { $$ = gmask.UNI }
-| RND LIN       { $$ = gmask.LIN }
-| RND RLIN      { $$ = gmask.RLIN }
-| RND TRI       { $$ = gmask.TRI }
-| RND EXP       { $$ = gmask.EXP }
-| RND REXP      { $$ = gmask.REXP }
-| RND BEXP      { $$ = gmask.BEXP }
-| RND GAUSS     { $$ = gmask.GAUSS }
-| RND CAUCHY    { $$ = gmask.CAUCHY }
-| RND BETA      { $$ = gmask.BETA }
-| RND WEI       { $$ = gmask.WEI }
+rnd: RND UNI    { $$ = gmasklib.UNI }
+| RND LIN       { $$ = gmasklib.LIN }
+| RND RLIN      { $$ = gmasklib.RLIN }
+| RND TRI       { $$ = gmasklib.TRI }
+| RND EXP       { $$ = gmasklib.EXP }
+| RND REXP      { $$ = gmasklib.REXP }
+| RND BEXP      { $$ = gmasklib.BEXP }
+| RND GAUSS     { $$ = gmasklib.GAUSS }
+| RND CAUCHY    { $$ = gmasklib.CAUCHY }
+| RND BETA      { $$ = gmasklib.BETA }
+| RND WEI       { $$ = gmasklib.WEI }
 ;
 
-rndgen: rnd            { $$ = gmask.RndGen($1) }
-| rnd NUMBER           { $$ = gmask.RndGen($1, $2) }
-| rnd bpf              { $$ = gmask.RndGen($1, $2) }
-| rnd NUMBER NUMBER    { $$ = gmask.RndGen($1, $2, $3) }
-| rnd bpf NUMBER       { $$ = gmask.RndGen($1, $2, $3) }
-| rnd NUMBER bpf       { $$ = gmask.RndGen($1, $2, $3) }
-| rnd bpf bpf          { $$ = gmask.RndGen($1, $2, $3) }
+rndgen: rnd            { $$ = gmasklib.RndGen($1) }
+| rnd NUMBER           { $$ = gmasklib.RndGen($1, $2) }
+| rnd bpf              { $$ = gmasklib.RndGen($1, $2) }
+| rnd NUMBER NUMBER    { $$ = gmasklib.RndGen($1, $2, $3) }
+| rnd bpf NUMBER       { $$ = gmasklib.RndGen($1, $2, $3) }
+| rnd NUMBER bpf       { $$ = gmasklib.RndGen($1, $2, $3) }
+| rnd bpf bpf          { $$ = gmasklib.RndGen($1, $2, $3) }
 ;
 
-osc: OSC SIN      { $$ = gmask.SIN }
-| OSC COS         { $$ = gmask.COS }
-| OSC SQUARE      { $$ = gmask.SQUARE }
-| OSC TRIANGLE    { $$ = gmask.TRIANGLE }
-| OSC SAWUP       { $$ = gmask.SAWUP }
-| OSC SAWDOWN     { $$ = gmask.SAWDOWN }
-| OSC POWUP       { $$ = gmask.POWUP }
-| OSC POWDOWN     { $$ = gmask.POWDOWN }
+osc: OSC SIN      { $$ = gmasklib.SIN }
+| OSC COS         { $$ = gmasklib.COS }
+| OSC SQUARE      { $$ = gmasklib.SQUARE }
+| OSC TRIANGLE    { $$ = gmasklib.TRIANGLE }
+| OSC SAWUP       { $$ = gmasklib.SAWUP }
+| OSC SAWDOWN     { $$ = gmasklib.SAWDOWN }
+| OSC POWUP       { $$ = gmasklib.POWUP }
+| OSC POWDOWN     { $$ = gmasklib.POWDOWN }
 ;
 
-oscgen: osc NUMBER          { $$ = gmask.OscGen($1, $2) }
-| osc bpf                   { $$ = gmask.OscGen($1, $2) }
-| osc NUMBER NUMBER         { $$ = gmask.OscGen($1, $2, $3) }
-| osc bpf NUMBER            { $$ = gmask.OscGen($1, $2, $3) }
-| osc NUMBER NUMBER NUMBER  { $$ = gmask.OscGen($1, $2, $3, $4) }
-| osc bpf NUMBER NUMBER     { $$ = gmask.OscGen($1, $2, $3, $4) }
+oscgen: osc NUMBER          { $$ = gmasklib.OscGen($1, $2) }
+| osc bpf                   { $$ = gmasklib.OscGen($1, $2) }
+| osc NUMBER NUMBER         { $$ = gmasklib.OscGen($1, $2, $3) }
+| osc bpf NUMBER            { $$ = gmasklib.OscGen($1, $2, $3) }
+| osc NUMBER NUMBER NUMBER  { $$ = gmasklib.OscGen($1, $2, $3, $4) }
+| osc bpf NUMBER NUMBER     { $$ = gmasklib.OscGen($1, $2, $3, $4) }
 ;
 
 mask: MASK NUMBER NUMBER    { $$ = NewInterfaceSlice($2, $3) }
@@ -174,9 +174,9 @@ quant: QUANT NUMBER            { $$ = NewInterfaceSlice($2) }
 | QUANT bpf bpf bpf            { $$ = NewInterfaceSlice($2, $3, $4) }
 ;
 
-accummode: ACCUM LIMIT    { $$ = gmask.LIMIT }
-| ACCUM MIRROR            { $$ = gmask.MIRROR }
-| ACCUM WRAP              { $$ = gmask.WRAP }
+accummode: ACCUM LIMIT    { $$ = gmasklib.LIMIT }
+| ACCUM MIRROR            { $$ = gmasklib.MIRROR }
+| ACCUM WRAP              { $$ = gmasklib.WRAP }
 ;
 
 accum: accummode NUMBER NUMBER  { $$ = NewInterfaceSlice($1, $2, $3) }

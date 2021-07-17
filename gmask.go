@@ -24,15 +24,15 @@ type yySymType struct {
 	val float64
 	n   int
 	sco string
-	fie *gmask.Field
-	par gmask.Param
-	gen gmask.Generator
-	itm gmask.ItemMode
+	fie *gmasklib.Field
+	par gmasklib.Param
+	gen gmasklib.Generator
+	itm gmasklib.ItemMode
 	lst *List
-	ipl *gmask.Interpolation
-	rmd gmask.RndMode
-	omd gmask.OscMode
-	amd gmask.AccumMode
+	ipl *gmasklib.Interpolation
+	rmd gmasklib.RndMode
+	omd gmasklib.OscMode
+	amd gmasklib.AccumMode
 	sli []interface{}
 }
 
@@ -706,7 +706,7 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:70
 		{
-			yyVAL.fie = gmask.NewField(yyDollar[2].val, yyDollar[3].val)
+			yyVAL.fie = gmasklib.NewField(yyDollar[2].val, yyDollar[3].val)
 		}
 	case 5:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -718,19 +718,19 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:74
 		{
-			yyVAL.par = gmask.NewParam(yyDollar[1].n, yyDollar[2].gen, yyDollar[3].n)
+			yyVAL.par = gmasklib.NewParam(yyDollar[1].n, yyDollar[2].gen, yyDollar[3].n)
 		}
 	case 7:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:77
 		{
-			yyVAL.gen = gmask.ConstGen(yyDollar[2].val)
+			yyVAL.gen = gmasklib.ConstGen(yyDollar[2].val)
 		}
 	case 8:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line gmask.y:78
 		{
-			yyVAL.gen = gmask.ItemGen(yyDollar[1].itm, yyDollar[3].lst.GetVal())
+			yyVAL.gen = gmasklib.ItemGen(yyDollar[1].itm, yyDollar[3].lst.GetVal())
 		}
 	case 9:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -742,61 +742,61 @@ yydefault:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:80
 		{
-			yyVAL.gen = gmask.RangeGen(yyDollar[2].val, yyDollar[3].val)
+			yyVAL.gen = gmasklib.RangeGen(yyDollar[2].val, yyDollar[3].val)
 		}
 	case 13:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:83
 		{
-			yyVAL.gen = gmask.MaskGen(yyDollar[1].gen, yyDollar[2].sli...)
+			yyVAL.gen = gmasklib.MaskGen(yyDollar[1].gen, yyDollar[2].sli...)
 		}
 	case 14:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:84
 		{
-			yyVAL.gen = gmask.QuantGen(yyDollar[1].gen, yyDollar[2].sli...)
+			yyVAL.gen = gmasklib.QuantGen(yyDollar[1].gen, yyDollar[2].sli...)
 		}
 	case 15:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:85
 		{
-			yyVAL.gen = gmask.AccumGen(yyDollar[1].gen, gmask.ON)
+			yyVAL.gen = gmasklib.AccumGen(yyDollar[1].gen, gmasklib.ON)
 		}
 	case 16:
 		yyDollar = yyS[yypt-5 : yypt+1]
 //line gmask.y:86
 		{
-			yyVAL.gen = gmask.AccumGen(yyDollar[1].gen, gmask.ON, yyDollar[5].val)
+			yyVAL.gen = gmasklib.AccumGen(yyDollar[1].gen, gmasklib.ON, yyDollar[5].val)
 		}
 	case 17:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:87
 		{
-			yyVAL.gen = gmask.AccumGen(yyDollar[1].gen, yyDollar[2].sli...)
+			yyVAL.gen = gmasklib.AccumGen(yyDollar[1].gen, yyDollar[2].sli...)
 		}
 	case 18:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:90
 		{
-			yyVAL.itm = gmask.CYCLE
+			yyVAL.itm = gmasklib.CYCLE
 		}
 	case 19:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:91
 		{
-			yyVAL.itm = gmask.SWING
+			yyVAL.itm = gmasklib.SWING
 		}
 	case 20:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:92
 		{
-			yyVAL.itm = gmask.HEAP
+			yyVAL.itm = gmasklib.HEAP
 		}
 	case 21:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:93
 		{
-			yyVAL.itm = gmask.RANDOM
+			yyVAL.itm = gmasklib.RANDOM
 		}
 	case 22:
 		yyDollar = yyS[yypt-1 : yypt+1]
@@ -814,13 +814,13 @@ yydefault:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line gmask.y:100
 		{
-			yyVAL.gen = gmask.BpfGen(yyDollar[2].lst.GetVal(), yyDollar[3].ipl)
+			yyVAL.gen = gmasklib.BpfGen(yyDollar[2].lst.GetVal(), yyDollar[3].ipl)
 		}
 	case 25:
 		yyDollar = yyS[yypt-5 : yypt+1]
 //line gmask.y:101
 		{
-			yyVAL.gen = gmask.BpfGen([]float64{yyDollar[2].val, yyDollar[3].val}, yyDollar[4].ipl)
+			yyVAL.gen = gmasklib.BpfGen([]float64{yyDollar[2].val, yyDollar[3].val}, yyDollar[4].ipl)
 		}
 	case 26:
 		yyDollar = yyS[yypt-2 : yypt+1]
@@ -838,217 +838,217 @@ yydefault:
 		yyDollar = yyS[yypt-0 : yypt+1]
 //line gmask.y:108
 		{
-			yyVAL.ipl = gmask.NewInterpolation(0, false, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, false, false)
 		}
 	case 29:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:109
 		{
-			yyVAL.ipl = gmask.NewInterpolation(yyDollar[2].val, false, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(yyDollar[2].val, false, false)
 		}
 	case 30:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:110
 		{
-			yyVAL.ipl = gmask.NewInterpolation(0, true, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, true, false)
 		}
 	case 31:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:111
 		{
-			yyVAL.ipl = gmask.NewInterpolation(0, false, true)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, false, true)
 		}
 	case 32:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:114
 		{
-			yyVAL.rmd = gmask.UNI
+			yyVAL.rmd = gmasklib.UNI
 		}
 	case 33:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:115
 		{
-			yyVAL.rmd = gmask.LIN
+			yyVAL.rmd = gmasklib.LIN
 		}
 	case 34:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:116
 		{
-			yyVAL.rmd = gmask.RLIN
+			yyVAL.rmd = gmasklib.RLIN
 		}
 	case 35:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:117
 		{
-			yyVAL.rmd = gmask.TRI
+			yyVAL.rmd = gmasklib.TRI
 		}
 	case 36:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:118
 		{
-			yyVAL.rmd = gmask.EXP
+			yyVAL.rmd = gmasklib.EXP
 		}
 	case 37:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:119
 		{
-			yyVAL.rmd = gmask.REXP
+			yyVAL.rmd = gmasklib.REXP
 		}
 	case 38:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:120
 		{
-			yyVAL.rmd = gmask.BEXP
+			yyVAL.rmd = gmasklib.BEXP
 		}
 	case 39:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:121
 		{
-			yyVAL.rmd = gmask.GAUSS
+			yyVAL.rmd = gmasklib.GAUSS
 		}
 	case 40:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:122
 		{
-			yyVAL.rmd = gmask.CAUCHY
+			yyVAL.rmd = gmasklib.CAUCHY
 		}
 	case 41:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:123
 		{
-			yyVAL.rmd = gmask.BETA
+			yyVAL.rmd = gmasklib.BETA
 		}
 	case 42:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:124
 		{
-			yyVAL.rmd = gmask.WEI
+			yyVAL.rmd = gmasklib.WEI
 		}
 	case 43:
 		yyDollar = yyS[yypt-1 : yypt+1]
 //line gmask.y:127
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd)
 		}
 	case 44:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:128
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].val)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].val)
 		}
 	case 45:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:129
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].gen)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].gen)
 		}
 	case 46:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:130
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].val, yyDollar[3].val)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].val, yyDollar[3].val)
 		}
 	case 47:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:131
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].gen, yyDollar[3].val)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].gen, yyDollar[3].val)
 		}
 	case 48:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:132
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].val, yyDollar[3].gen)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].val, yyDollar[3].gen)
 		}
 	case 49:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:133
 		{
-			yyVAL.gen = gmask.RndGen(yyDollar[1].rmd, yyDollar[2].gen, yyDollar[3].gen)
+			yyVAL.gen = gmasklib.RndGen(yyDollar[1].rmd, yyDollar[2].gen, yyDollar[3].gen)
 		}
 	case 50:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:136
 		{
-			yyVAL.omd = gmask.SIN
+			yyVAL.omd = gmasklib.SIN
 		}
 	case 51:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:137
 		{
-			yyVAL.omd = gmask.COS
+			yyVAL.omd = gmasklib.COS
 		}
 	case 52:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:138
 		{
-			yyVAL.omd = gmask.SQUARE
+			yyVAL.omd = gmasklib.SQUARE
 		}
 	case 53:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:139
 		{
-			yyVAL.omd = gmask.TRIANGLE
+			yyVAL.omd = gmasklib.TRIANGLE
 		}
 	case 54:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:140
 		{
-			yyVAL.omd = gmask.SAWUP
+			yyVAL.omd = gmasklib.SAWUP
 		}
 	case 55:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:141
 		{
-			yyVAL.omd = gmask.SAWDOWN
+			yyVAL.omd = gmasklib.SAWDOWN
 		}
 	case 56:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:142
 		{
-			yyVAL.omd = gmask.POWUP
+			yyVAL.omd = gmasklib.POWUP
 		}
 	case 57:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:143
 		{
-			yyVAL.omd = gmask.POWDOWN
+			yyVAL.omd = gmasklib.POWDOWN
 		}
 	case 58:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:146
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].val)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].val)
 		}
 	case 59:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:147
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].gen)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].gen)
 		}
 	case 60:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:148
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].val, yyDollar[3].val)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].val, yyDollar[3].val)
 		}
 	case 61:
 		yyDollar = yyS[yypt-3 : yypt+1]
 //line gmask.y:149
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].gen, yyDollar[3].val)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].gen, yyDollar[3].val)
 		}
 	case 62:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line gmask.y:150
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].val, yyDollar[3].val, yyDollar[4].val)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].val, yyDollar[3].val, yyDollar[4].val)
 		}
 	case 63:
 		yyDollar = yyS[yypt-4 : yypt+1]
 //line gmask.y:151
 		{
-			yyVAL.gen = gmask.OscGen(yyDollar[1].omd, yyDollar[2].gen, yyDollar[3].val, yyDollar[4].val)
+			yyVAL.gen = gmasklib.OscGen(yyDollar[1].omd, yyDollar[2].gen, yyDollar[3].val, yyDollar[4].val)
 		}
 	case 64:
 		yyDollar = yyS[yypt-3 : yypt+1]
@@ -1168,19 +1168,19 @@ yydefault:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:177
 		{
-			yyVAL.amd = gmask.LIMIT
+			yyVAL.amd = gmasklib.LIMIT
 		}
 	case 84:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:178
 		{
-			yyVAL.amd = gmask.MIRROR
+			yyVAL.amd = gmasklib.MIRROR
 		}
 	case 85:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:179
 		{
-			yyVAL.amd = gmask.WRAP
+			yyVAL.amd = gmasklib.WRAP
 		}
 	case 86:
 		yyDollar = yyS[yypt-3 : yypt+1]

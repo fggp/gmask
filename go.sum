@@ -1,0 +1,4 @@
+github.com/fggp/gmasklib v1.0.0 h1:vcHKKEKuPtvDv/e+zJyWP/iBpbIhwsHy2aRYHYWNkeU=
+github.com/fggp/gmasklib v1.0.0/go.mod h1:JjO3lhui8j1X0hOjw78iCEdwpKcpcUOpiZk48w2nOYA=
+github.com/fggp/go-csnd v1.0.0 h1:33Rm1s/63Ov3K28wz0jmuEEgvMvPfZzf6vEX1TlRwwo=
+github.com/fggp/go-csnd v1.0.0/go.mod h1:GCN006c7JrysriWgsHN10GtpuAK+24onKAsbxvELncY=
