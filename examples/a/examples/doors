@@ -1,0 +1,30 @@
+{
+f1 0 0 -1 "door1.aif" 0 4 1
+f2 0 0 -1 "door2.aif" 0 4 1
+f3 0 0 -1 "door3.aif" 0 4 1
+f4 0 0 -1 "door4.aif" 0 4 1
+f5 0 0 -1 "door5.aif" 0 4 1
+f6 0 0 -1 "door6.aif" 0 4 1
+
+f10 0 8192 9 .25 1 0
+i99 0 23
+}
+
+f 0 20
+
+p1 const 1
+
+p2 rnd beta .05 .1
+mask (12 .01 18 .2) (12 .1 18 1)
+
+p3 seg [.3 1.2 ipl 0.4]
+
+p4 mask [3 .8 ipl .4] [5 1.2 ipl .4]
+
+p5 range 1 6
+prec 0
+
+p6 range 0 1
+
+p7 seg (2 0 18 .5 ipl 1)
+

@@ -1,0 +1,18 @@
+{
+f1 0 131072 1 "schwermt.aif" 0 4 1  
+f2 0 8193 8 0 4096 1 4096 0
+}
+
+; for use with pitchshift.orc !
+
+f 0 2.2  
+
+p1 const 1
+
+p2 const 0.01 	;constant grain interonset 10 ms
+
+p3 const 0.02 	;constant grain duration 20 ms
+
+p4 seg [1 2.2 ipl .3]
+			;acceleration = glissando
+

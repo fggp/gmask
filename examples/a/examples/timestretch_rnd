@@ -1,0 +1,19 @@
+{
+f1 0 131072 1 "schwermt.aif" 0 4 1  ;43520
+f2 0 8193 8 0 4096 1 4096 0
+}
+
+; for use with timestretch.orc !
+
+f 0 11  
+
+p1 const 1
+
+p2 range .01 .05	;random grain interonset 10 ... 50 ms
+prec 2
+
+p3 range .04 .1 	;random grain duration 40 ... 100 ms
+prec 2
+
+p4 range 0 2.1	;random pointer
+prec 3

@@ -1,0 +1,14 @@
+{
+f1 0 131072 1 "schwermt.aif" 0 4 1  ;
+f2 0 8193 8 0 4096 1 4096 0
+}
+
+f 0 2.2  
+
+p1 const 1
+
+p2 const 0.01 ;constant grain interonset 10 ms
+
+p3 const 0.02 ;constant grain duration 20 ms
+
+p4 const 1.5  ;speed*1.5 = fifth higher
