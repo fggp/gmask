@@ -105,10 +105,10 @@ bplist: NUMBER NUMBER     { $$ = NewBpList($1, $2) }
 | bplist NUMBER NUMBER    { $1.AddBp($2, $3) }
 ;
 
-ipl: /* empty */          { $$ = gmasklib.NewInterpolation(0, false, false) }
-| IPL NUMBER              { $$ = gmasklib.NewInterpolation($2, false, false) }
-| IPL COS                 { $$ = gmasklib.NewInterpolation(0, true, false) }
-| IPL OFF                 { $$ = gmasklib.NewInterpolation(0, false, true) }
+ipl: /* empty */          { $$ = gmasklib.NewInterpolation(0, gmasklib.IPLNUM) }
+| IPL NUMBER              { $$ = gmasklib.NewInterpolation($2, gmasklib.IPLNUM) }
+| IPL COS                 { $$ = gmasklib.NewInterpolation(0, gmasklib.IPLCOS) }
+| IPL OFF                 { $$ = gmasklib.NewInterpolation(0, gmasklib.IPLOFF) }
 ;
 
 rnd: RND UNI    { $$ = gmasklib.UNI }

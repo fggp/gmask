@@ -838,25 +838,25 @@ yydefault:
 		yyDollar = yyS[yypt-0 : yypt+1]
 //line gmask.y:108
 		{
-			yyVAL.ipl = gmasklib.NewInterpolation(0, false, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, gmasklib.IPLNUM)
 		}
 	case 29:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:109
 		{
-			yyVAL.ipl = gmasklib.NewInterpolation(yyDollar[2].val, false, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(yyDollar[2].val, gmasklib.IPLNUM)
 		}
 	case 30:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:110
 		{
-			yyVAL.ipl = gmasklib.NewInterpolation(0, true, false)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, gmasklib.IPLCOS)
 		}
 	case 31:
 		yyDollar = yyS[yypt-2 : yypt+1]
 //line gmask.y:111
 		{
-			yyVAL.ipl = gmasklib.NewInterpolation(0, false, true)
+			yyVAL.ipl = gmasklib.NewInterpolation(0, gmasklib.IPLOFF)
 		}
 	case 32:
 		yyDollar = yyS[yypt-2 : yypt+1]
