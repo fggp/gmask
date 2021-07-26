@@ -9,20 +9,19 @@
 sr     = 44100
 ksmps  = 10
 nchnls = 1
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
 ;p2 onset
 ;p3 duration
 ;p4 speed factor (=transposition)
 
-kenv	oscil		30000,1/p3,2
-aindx	line		p2,p3,p2+p3*p4
-asig	tablei	aindx*sr,1
-
-	out		asig*kenv
-
-endin	
+kenv  = oscil(0.92, 1/p3, 2)
+aindx = line:a(p2, p3, p2 + p3*p4)
+asig  = tablei:a(aindx*sr, 1)
+     out asig*kenv
+  endin  
 </CsInstruments>
 
 <CsScore bin="gmask">
@@ -37,12 +36,11 @@ f 0 2.2
 
 p1 const 1
 
-p2 const .02 	;constant grain interonset 20 ms
+p2 const .02   ;constant grain interonset 20 ms
 
-p3 const .04 	;constant grain duration 40 ms
+p3 const .04   ;constant grain duration 40 ms
 
-p4 range .75 1.5 	;random intervall
+p4 range .75 1.5   ;random intervall
 prec 2
 </CsScore>
 </CsoundSynthesizer>
-
