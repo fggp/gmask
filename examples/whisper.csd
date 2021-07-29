@@ -9,18 +9,19 @@
 sr     = 44100
 ksmps  = 10
 nchnls = 2
+0dbfs  = 1.0
 
-instr 1
+  instr 1
 
-ipanl	table	1-p5 ,4,1
-ipanr	table	p5 ,4,1
+ipanl = table(1-p5, 4, 1)
+ipanr = table(p5, 4, 1)
 
-andx	line	p4,p3,p4+p3*p6
-asig	tablei	andx*sr,1
-kamp	oscil	8000,1/p3,2
-		outs	asig*kamp*ipanl, asig*kamp*ipanr  
+andx = line:a(p4, p3, p4+p3*p6)
+asig = tablei:a(andx*sr, 1)
+kamp = oscil(0.25, 1/p3, 2)
+     outs  asig*kamp*ipanl, asig*kamp*ipanr  
 
-endin	
+  endin  
 </CsInstruments>
 
 <CsScore bin="gmask">
@@ -28,7 +29,7 @@ endin
 f1 0 262144 1 "whisp.aif" 0 4 1
 ;= 5.94 sec
 f2 0 8192 19 1 1 270 1
-f4 0 8192 9 .25 1 0			; pan function
+f4 0 8192 9 .25 1 0      ; pan function
 }
 
 f 0 60
@@ -51,4 +52,3 @@ mask (0 .3 25 1 40 .7) (0 2 4 1 25 1.2)
 quant .3 (0 0 25 .9 30 0 45 .9 55 0) (40 0 45 1.5 55 0)
 </CsScore>
 </CsoundSynthesizer>
-
