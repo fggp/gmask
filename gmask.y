@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"github.com/fggp/gmasklib"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 )
@@ -241,7 +240,7 @@ var w io.Writer
 var fieldNum int
 
 func main() {
-	input, err := ioutil.ReadFile(os.Args[1])
+	input, err := os.ReadFile(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
 	}
